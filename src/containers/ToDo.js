@@ -4,7 +4,7 @@ import ToDoButton from "../components/ToDoButton";
 
 const ToDo = ({todo, toggleComplete, deleteTodo}) => (
     <View style={styles.todoContainer}>
-        <Text style={styles.todoText}>
+        <Text style={[styles.todoText, todo.complete ? styles.completeTodoText : null]}>
             {todo.title}
         </Text>
         <View style={styles.buttons}>
@@ -42,6 +42,9 @@ const styles = StyleSheet.create({
     },
     todoText: {
         fontSize: 16
+    },
+    completeTodoText: {
+        textDecorationLine: 'line-through'
     },
     buttons: {
         flex: 1,

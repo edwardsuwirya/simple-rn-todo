@@ -6,7 +6,7 @@
  * @flow strict-local
  */
 
-import React from 'react';
+import React, {useState} from 'react';
 import {SafeAreaView, ScrollView, StyleSheet,} from 'react-native';
 import Heading from "./components/Heading";
 import Input from "./components/Input";
@@ -23,49 +23,62 @@ Component Creation Step
 5. Buat ToDoButton
 6. Buat TabBar dan TabBarItem
  */
+let todoIndex = 0;
 
 const App = () => {
-    let inputValue = "";
-    let todos = [{
-        todoIndex: 1,
-        title: 'Title 1',
-        isComplete: false
-    }, {
-        todoIndex: 2,
-        title: 'Title 2',
-        isComplete: false
-    }];
+    const [appState, setAppState] = useState({
+        inputValue: '',
+        todos: [],
+        type: 'All'
+    })
 
-    let type = '';
     const inputChange = (inputValue) => {
-        console.log('Input Value: ', inputValue);
+        setAppState({...appState, inputValue: inputValue});
     }
 
     const submitTodo = () => {
-        console.log('Submit');
+        if (appState.inputValue.match(/^\s*$/)) {
+            return
+        }
+        const todo = {
+            title: appState.inputValue,
+            todoIndex,
+            complete: false
+        }
+        todoIndex++
+        const todos = [...appState.todos, todo]
+        setAppState({...appState, inputValue: '', todos: todos});
     }
 
     const toggleComplete = (todoIndex) => {
-        console.log('Complete : ', todoIndex);
+        let {todos} = appState;
+        todos.forEach((todo) => {
+            if (todo.todoIndex === todoIndex) {
+                todo.complete = !todo.complete;
+            }
+        })
+        setAppState({...appState, todos: todos});
     }
     const deleteTodo = (todoIndex) => {
-        console.log('Delete : ', todoIndex);
+        let {todos} = appState;
+        todos = todos.filter((todo) => todo.todoIndex !== todoIndex)
+        setAppState({...appState, todos: todos});
     }
 
     const setType = (type) => {
-        console.log('Set Type : ' + type);
+        setAppState({...appState, type: type});
     }
     return (
         <SafeAreaView style={styles.container}>
             <ScrollView
                 contentInsetAdjustmentBehavior="automatic" keyboardShouldPersistTaps="never" style={styles.content}>
                 <Heading/>
-                <Input inputValue={inputValue} inputChange={(text) => inputChange(text)}/>
-                <ToDoList todos={todos} toggleComplete={toggleComplete}
-                          deleteTodo={deleteTodo} type={type}/>
+                <Input inputValue={appState.inputValue} inputChange={(text) => inputChange(text)}/>
+                <ToDoList todos={appState.todos} toggleComplete={toggleComplete}
+                          deleteTodo={deleteTodo} type={appState.type}/>
                 <SubmitButton submitTodo={submitTodo}/>
             </ScrollView>
-            <TabBar type={type} setType={setType}/>
+            <TabBar type={appState.type} setType={setType}/>
         </SafeAreaView>
     );
 };
