@@ -2,14 +2,11 @@ import React from 'react'
 import {View, StyleSheet} from 'react-native'
 import TabBarItem from "../components/TabBarItem";
 
-const TabBar = ({setType, type}) => (
+const TabBar = () => (
     <View style={styles.container}>
-        <TabBarItem type={type} title='All'
-                    setType={() => setType('All')}/>
-        <TabBarItem type={type} border title='Active'
-                    setType={() => setType('Active')}/>
-        <TabBarItem type={type} border title='Complete'
-                    setType={() => setType('Complete')}/>
+        <TabBarItem border selected title='All'/>
+        <TabBarItem border title='Active'/>
+        <TabBarItem border title='Complete'/>
     </View>)
 const styles = StyleSheet.create({
     container: {

@@ -1,22 +1,33 @@
 import React from 'react'
 import {View, Text, StyleSheet} from 'react-native'
 import ToDoButton from "../components/ToDoButton";
+import {useDispatch} from "react-redux";
+import {deleteTodo, toggleComplete} from "../store/todo/ToDoAction";
 
-const ToDo = ({todo, toggleComplete, deleteTodo}) => (
-    <View style={styles.todoContainer}>
-        <Text style={[styles.todoText, todo.complete ? styles.completeTodoText : null]}>
-            {todo.title}
-        </Text>
-        <View style={styles.buttons}>
-            <ToDoButton
-                name='Done'
-                onPress={() => toggleComplete(todo.todoIndex)}/>
-            <ToDoButton
-                name='Delete'
-                onPress={() => deleteTodo(todo.todoIndex)}/>
+const ToDo = ({todo}) => {
+    const dispatch = useDispatch();
+    const onTodoComplete = (idx) => {
+        dispatch(toggleComplete(idx));
+    }
+    const onTodoDelete = (idx) => {
+        dispatch(deleteTodo(idx));
+    }
+    return (
+        <View style={styles.todoContainer}>
+            <Text style={[styles.todoText, todo.complete ? styles.completeTodoText : null]}>
+                {todo.title}
+            </Text>
+            <View style={styles.buttons}>
+                <ToDoButton
+                    name='Done'
+                    onPress={() => onTodoComplete(todo.todoIndex)}/>
+                <ToDoButton
+                    name='Delete'
+                    onPress={() => onTodoDelete(todo.todoIndex)}/>
+            </View>
         </View>
-    </View>
-)
+    )
+}
 const styles = StyleSheet.create({
     todoContainer: {
         marginLeft: 20,
