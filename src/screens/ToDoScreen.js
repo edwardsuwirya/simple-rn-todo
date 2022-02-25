@@ -62,7 +62,7 @@ const ToDoScreen = () => {
     return (
         <View style={styles.container}>
             <Heading/>
-            <Input inputValue={inputValue} inputChange={(text) => inputChange(text)}/>
+            <Input inputValue={appState.inputValue} inputChange={(text) => inputChange(text)}/>
             <SubmitButton submitTodo={submitTodo}/>
             <ScrollView
                 contentInsetAdjustmentBehavior="automatic" keyboardShouldPersistTaps="never" style={styles.content}>
