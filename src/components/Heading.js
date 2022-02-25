@@ -11,7 +11,7 @@ const Heading = () => (
 
 const styles = StyleSheet.create({
     header: {
-        marginTop: 80
+        marginTop: 40
     },
     headerText: {
         textAlign: 'center',

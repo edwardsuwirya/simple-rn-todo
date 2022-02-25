@@ -37,18 +37,18 @@ const ToDoScreen = () => {
         setTimeout(function () {
             dispatch(addTodo(todo));
             dispatch(showLoading(false));
-        }, 3000);
+        }, 1000);
 
     }
     return (
         <View style={styles.container}>
+            <Heading/>
+            <Input inputChange={(text) => setTodoName(text)}/>
+            <SubmitButton submitTodo={submitTodo}/>
             <ScrollView
-                contentInsetAdjustmentBehavior="automatic" keyboardShouldPersistTaps="never"
-                style={styles.content}>
-                <Heading/>
-                <Input inputChange={(text) => setTodoName(text)}/>
-                <ToDoList/>
-                <SubmitButton submitTodo={submitTodo}/>
+                contentInsetAdjustmentBehavior="automatic" keyboardShouldPersistTaps="never" style={styles.content}>
+                <ToDoList />
+
             </ScrollView>
             <TabBar/>
             {isLoading && <View style={styles.loading}>
@@ -65,7 +65,7 @@ const styles = StyleSheet.create({
     },
     content: {
         flex: 1,
-        paddingTop: 60
+        paddingTop: 10,
     },
     loading: {
         flex: 1,
