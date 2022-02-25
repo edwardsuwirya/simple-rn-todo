@@ -7,80 +7,77 @@
  */
 
 import React, {useState} from 'react';
-import {ScrollView, StyleSheet, View,} from 'react-native';
+import {ActivityIndicator, ScrollView, StyleSheet, View,} from 'react-native';
 import Heading from "../components/Heading";
 import Input from "../components/Input";
 import ToDoList from "../containers/ToDoList";
 import SubmitButton from "../components/SubmitButton";
 import TabBar from "../containers/TabBar";
-
-let todoIndex = 0;
+import {addTodo, showLoading} from "../store/todo/ToDoAction";
+import {useDispatch, useSelector} from "react-redux";
 
 const ToDoScreen = () => {
-    const [appState, setAppState] = useState({
-        inputValue: '',
-        todos: [],
-        type: 'All'
-    })
-
-    const inputChange = (inputValue) => {
-        setAppState({...appState, inputValue: inputValue});
-    }
+    const dispatch = useDispatch();
+    const currIndex = useSelector((state) => state.ToDoReducer.todoIndex);
+    const isLoading = useSelector((state) => state.ToDoReducer.isLoading);
+    let [todoName, setTodoName] = useState('')
 
     const submitTodo = () => {
-        if (appState.inputValue.match(/^\s*$/)) {
+        dispatch(showLoading(true));
+        if (todoName.match(/^\s*$/)) {
             return
         }
         const todo = {
-            title: appState.inputValue,
-            todoIndex,
+            title: todoName,
+            todoIndex: currIndex,
             complete: false
         }
-        todoIndex++
-        const todos = [...appState.todos, todo]
-        setAppState({...appState, inputValue: '', todos: todos});
-    }
 
-    const toggleComplete = (todoIndex) => {
-        let {todos} = appState;
-        todos.forEach((todo) => {
-            if (todo.todoIndex === todoIndex) {
-                todo.complete = !todo.complete;
-            }
-        })
-        setAppState({...appState, todos: todos});
-    }
-    const deleteTodo = (todoIndex) => {
-        let {todos} = appState;
-        todos = todos.filter((todo) => todo.todoIndex !== todoIndex)
-        setAppState({...appState, todos: todos});
-    }
+        // Hanya sekedar simulasi
+        setTimeout(function () {
+            dispatch(addTodo(todo));
+            dispatch(showLoading(false));
+        }, 3000);
 
-    const setType = (type) => {
-        setAppState({...appState, type: type});
     }
     return (
         <View style={styles.container}>
             <ScrollView
-                contentInsetAdjustmentBehavior="automatic" keyboardShouldPersistTaps="never" style={styles.content}>
+                contentInsetAdjustmentBehavior="automatic" keyboardShouldPersistTaps="never"
+                style={styles.content}>
                 <Heading/>
-                <Input inputValue={appState.inputValue} inputChange={(text) => inputChange(text)}/>
-                <ToDoList todos={appState.todos} toggleComplete={toggleComplete}
-                          deleteTodo={deleteTodo} type={appState.type}/>
+                <Input inputChange={(text) => setTodoName(text)}/>
+                <ToDoList/>
                 <SubmitButton submitTodo={submitTodo}/>
             </ScrollView>
-            <TabBar type={appState.type} setType={setType}/>
+            <TabBar/>
+            {isLoading && <View style={styles.loading}>
+                <ActivityIndicator size={"large"} color="#0000ff"/>
+            </View>
+            }
         </View>
     );
 };
 
 const styles = StyleSheet.create({
     container: {
-        flex: 1
+        flex: 1,
     },
     content: {
         flex: 1,
         paddingTop: 60
+    },
+    loading: {
+        flex: 1,
+        position: 'absolute',
+        left: 0,
+        right: 0,
+        top: 0,
+        bottom: 0,
+        opacity: 0.5,
+        backgroundColor: 'black',
+        justifyContent: 'center',
+        alignItems: 'center'
     }
 });
 

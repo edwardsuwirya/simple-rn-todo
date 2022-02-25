@@ -9,6 +9,8 @@
 import React from 'react';
 import {SafeAreaView, StyleSheet,} from 'react-native';
 import ToDoScreen from "./screens/ToDoScreen";
+import configureStore from "./store/store";
+import {Provider} from "react-redux";
 
 /*
 Component Creation Step
@@ -22,10 +24,13 @@ Component Creation Step
  */
 
 const App = () => {
+    const store = configureStore();
     return (
-        <SafeAreaView style={styles.container}>
-            <ToDoScreen/>
-        </SafeAreaView>
+        <Provider store={store}>
+            <SafeAreaView style={styles.container}>
+                <ToDoScreen/>
+            </SafeAreaView>
+        </Provider>
     );
 };
 const styles = StyleSheet.create({
