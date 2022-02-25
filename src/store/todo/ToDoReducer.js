@@ -1,7 +1,8 @@
-import {ADD_TODO, CHANGE_TYPE, DELETE_TODO, SHOW_LOADING, TOGGLE_COMPLETE} from "../../utils/constants";
+import {ADD_TODO, CHANGE_TYPE, DELETE_TODO, SET_TODO_NAME, SHOW_LOADING, TOGGLE_COMPLETE} from "../../utils/constants";
 
 const initialState = {
     isLoading:false,
+    newTodoName:'',
     todoIndex: 1,
     todo: [],
     type: 'All'
@@ -11,6 +12,7 @@ const ToDoReducer = (state = initialState, action) => {
         case ADD_TODO: {
             return {
                 ...state,
+                newTodoName: '',
                 todoIndex: state.todoIndex + 1,
                 todo: [...state.todo, action.payload]
             };
@@ -38,6 +40,12 @@ const ToDoReducer = (state = initialState, action) => {
             return {
                 ...state,
                 type: action.payload
+            };
+        }
+        case SET_TODO_NAME: {
+            return {
+                ...state,
+                newTodoName: action.payload
             };
         }
         case SHOW_LOADING: {

@@ -6,8 +6,8 @@
  * @flow strict-local
  */
 
-import React, {useState} from 'react';
-import {ActivityIndicator, ScrollView, StyleSheet, View,} from 'react-native';
+import React from 'react';
+import {ActivityIndicator, KeyboardAvoidingView, ScrollView, StyleSheet, View,} from 'react-native';
 import Heading from "../components/Heading";
 import Input from "../components/Input";
 import ToDoList from "../containers/ToDoList";
@@ -20,7 +20,7 @@ const ToDoScreen = () => {
     const dispatch = useDispatch();
     const currIndex = useSelector((state) => state.ToDoReducer.todoIndex);
     const isLoading = useSelector((state) => state.ToDoReducer.isLoading);
-    let [todoName, setTodoName] = useState('')
+    const todoName = useSelector((state) => state.ToDoReducer.newTodoName);
 
     const submitTodo = () => {
         dispatch(showLoading(true));
@@ -41,21 +41,23 @@ const ToDoScreen = () => {
 
     }
     return (
-        <View style={styles.container}>
-            <Heading/>
-            <Input inputChange={(text) => setTodoName(text)}/>
-            <SubmitButton submitTodo={submitTodo}/>
-            <ScrollView
-                contentInsetAdjustmentBehavior="automatic" keyboardShouldPersistTaps="never" style={styles.content}>
-                <ToDoList />
-
-            </ScrollView>
-            <TabBar/>
+        <KeyboardAvoidingView style={styles.container}>
+            <View style={styles.content}>
+                <Heading/>
+                <Input/>
+                <SubmitButton submitTodo={submitTodo}/>
+                <ScrollView
+                    contentInsetAdjustmentBehavior="automatic" keyboardShouldPersistTaps="never" style={styles.content}>
+                    <ToDoList/>
+                </ScrollView>
+                <TabBar/>
+            </View>
             {isLoading && <View style={styles.loading}>
                 <ActivityIndicator size={"large"} color="#0000ff"/>
             </View>
             }
-        </View>
+        </KeyboardAvoidingView>
+
     );
 };
 

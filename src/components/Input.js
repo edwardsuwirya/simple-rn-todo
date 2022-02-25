@@ -1,22 +1,23 @@
-import React, {useState} from 'react';
-import {TextInput, View, StyleSheet} from "react-native";
+import React from 'react';
+import {StyleSheet, TextInput, View} from "react-native";
+import {useDispatch, useSelector} from "react-redux";
+import {setTodoName} from "../store/todo/ToDoAction";
 
-const Input = ({inputChange}) => {
-    const [inputValue, setInputValue] = useState('');
-
+const Input = () => {
+    const dispatch = useDispatch();
+    const todoName = useSelector((state) => state.ToDoReducer.newTodoName);
     const onInputChange = (text) => {
-        setInputValue(text);
+        dispatch(setTodoName(text));
     }
     return (
         <View style={styles.inputContainer}>
             <TextInput
-                value={inputValue}
+                value={todoName}
                 style={styles.input}
                 placeholder='What needs to be done?'
                 placeholderTextColor='#CACACA'
                 selectionColor='#666666'
                 onChangeText={onInputChange}
-                onBlur={() => inputChange(inputValue)}
             />
         </View>)
 }
