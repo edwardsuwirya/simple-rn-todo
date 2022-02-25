@@ -61,13 +61,14 @@ const ToDoScreen = () => {
     }
     return (
         <View style={styles.container}>
+            <Heading/>
+            <Input inputValue={inputValue} inputChange={(text) => inputChange(text)}/>
+            <SubmitButton submitTodo={submitTodo}/>
             <ScrollView
                 contentInsetAdjustmentBehavior="automatic" keyboardShouldPersistTaps="never" style={styles.content}>
-                <Heading/>
-                <Input inputValue={appState.inputValue} inputChange={(text) => inputChange(text)}/>
                 <ToDoList todos={appState.todos} toggleComplete={toggleComplete}
                           deleteTodo={deleteTodo} type={appState.type}/>
-                <SubmitButton submitTodo={submitTodo}/>
+
             </ScrollView>
             <TabBar type={appState.type} setType={setType}/>
         </View>
@@ -76,11 +77,11 @@ const ToDoScreen = () => {
 
 const styles = StyleSheet.create({
     container: {
-        flex: 1
+        flex: 1,
     },
     content: {
         flex: 1,
-        paddingTop: 60
+        paddingTop: 10,
     }
 });
 
