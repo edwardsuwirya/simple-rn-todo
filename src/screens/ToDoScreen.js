@@ -46,10 +46,9 @@ const ToDoScreen = () => {
                 <Heading/>
                 <Input/>
                 <SubmitButton submitTodo={submitTodo}/>
-                <ScrollView
-                    contentInsetAdjustmentBehavior="automatic" keyboardShouldPersistTaps="never" style={styles.content}>
+                <View style={styles.content}>
                     <ToDoList/>
-                </ScrollView>
+                </View>
                 <TabBar/>
             </View>
             {isLoading && <View style={styles.loading}>

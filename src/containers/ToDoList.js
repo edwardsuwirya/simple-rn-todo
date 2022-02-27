@@ -1,5 +1,5 @@
 import React from 'react'
-import {View} from 'react-native'
+import {FlatList, View} from 'react-native'
 import ToDo from "./ToDo";
 import {useSelector} from "react-redux";
 
@@ -19,15 +19,19 @@ const ToDoList = () => {
     }
 
     let selectedTodos = getVisibleTodos(todos, todoType);
-
-    let todoItems = selectedTodos && selectedTodos.map((todo) => {
+    //renderItem akan melempar sebuah props item
+    let todoItems = ({item}) => {
         return (
-            <ToDo key={todo.todoIndex} todo={todo}/>
+            <ToDo todo={item}/>
         );
-    })
+    };
     return (
         <View>
-            {todoItems}
+            <FlatList
+                data={selectedTodos}
+                renderItem={todoItems}
+                keyExtractor={item => item.todoIndex}
+            />
         </View>
     )
 }
