@@ -1,10 +1,10 @@
 import React from 'react';
 import {Text, View, StyleSheet} from "react-native";
 
-const Heading = () => (
+const Heading = ({title = ''}) => (
     <View style={styles.header}>
         <Text style={styles.headerText}>
-            todos
+            {title}
         </Text>
     </View>
 )

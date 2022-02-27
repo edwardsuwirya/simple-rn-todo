@@ -7,24 +7,25 @@
  */
 
 import React from 'react';
-import {ActivityIndicator, KeyboardAvoidingView, ScrollView, StyleSheet, View,} from 'react-native';
+import {KeyboardAvoidingView, StyleSheet, View,} from 'react-native';
 import Heading from "../components/Heading";
 import Input from "../components/Input";
 import ToDoList from "../containers/ToDoList";
 import SubmitButton from "../components/SubmitButton";
 import TabBar from "../containers/TabBar";
-import {addTodo, showLoading} from "../store/todo/ToDoAction";
+import {addTodo, setTodoName, showLoading} from "../store/todo/ToDoAction";
 import {useDispatch, useSelector} from "react-redux";
+import SafeAreaView from "react-native/Libraries/Components/SafeAreaView/SafeAreaView";
+import languages from "../utils/languages";
 
 const ToDoScreen = () => {
     const dispatch = useDispatch();
     const currIndex = useSelector((state) => state.ToDoReducer.todoIndex);
-    const isLoading = useSelector((state) => state.ToDoReducer.isLoading);
     const todoName = useSelector((state) => state.ToDoReducer.newTodoName);
-
     const submitTodo = () => {
         dispatch(showLoading(true));
         if (todoName.match(/^\s*$/)) {
+            dispatch(showLoading(false));
             return
         }
         const todo = {
@@ -38,25 +39,26 @@ const ToDoScreen = () => {
             dispatch(addTodo(todo));
             dispatch(showLoading(false));
         }, 1000);
+    }
 
+    const onSetTodoName = (text) => {
+        dispatch(setTodoName(text))
     }
     return (
-        <KeyboardAvoidingView style={styles.container}>
-            <View style={styles.content}>
-                <Heading/>
-                <Input/>
-                <SubmitButton submitTodo={submitTodo}/>
+        <SafeAreaView style={styles.container}>
+            <KeyboardAvoidingView style={styles.container}>
                 <View style={styles.content}>
-                    <ToDoList/>
+                    <Heading title={'todos'}/>
+                    <Input placeholder={languages.en.todoInput} currentValue={todoName}
+                           onInputChange={onSetTodoName}/>
+                    <SubmitButton onSubmit={submitTodo}/>
+                    <View style={styles.content}>
+                        <ToDoList/>
+                    </View>
+                    <TabBar/>
                 </View>
-                <TabBar/>
-            </View>
-            {isLoading && <View style={styles.loading}>
-                <ActivityIndicator size={"large"} color="#0000ff"/>
-            </View>
-            }
-        </KeyboardAvoidingView>
-
+            </KeyboardAvoidingView>
+        </SafeAreaView>
     );
 };
 

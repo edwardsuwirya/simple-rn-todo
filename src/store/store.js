@@ -1,8 +1,9 @@
 import {combineReducers, createStore} from "redux";
 import ToDoReducer from "./todo/ToDoReducer";
+import LoginReducer from "./login/LoginReducer";
 
 const rootReducer = combineReducers(
-    {ToDoReducer}
+    {ToDoReducer, LoginReducer}
 );
 
 const configureStore = () => {

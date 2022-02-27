@@ -7,11 +7,10 @@
  */
 
 import React from 'react';
-import {SafeAreaView, StyleSheet,} from 'react-native';
-import ToDoScreen from "./screens/ToDoScreen";
 import configureStore from "./store/store";
 import {Provider} from "react-redux";
-
+import RootNavigator from "./navigation/RootNavigator";
+import Loading from "./components/Loading";
 /*
 Component Creation Step
 0. ToDoScreen
@@ -23,20 +22,26 @@ Component Creation Step
 6. Buat TabBar dan TabBarItem
  */
 
+/*
+Navigation
+npm install @react-navigation/native @react-navigation/native-stack react-native-screens react-native-safe-area-context --save
+
+alternatif
+https://wix.github.io/react-native-navigation/docs/installing
+
+// Tidak bisa handle back button hardware, gunakan navigation.replace
+<Stack.Screen name="todos" component={ToDoScreen} options={{
+     headerBackVisible: false
+}}/>
+ */
+const store = configureStore();
 const App = () => {
-    const store = configureStore();
     return (
         <Provider store={store}>
-            <SafeAreaView style={styles.container}>
-                <ToDoScreen/>
-            </SafeAreaView>
+            <RootNavigator/>
+            <Loading/>
         </Provider>
     );
 };
-const styles = StyleSheet.create({
-    container: {
-        flex: 1
-    }
-});
 
 export default App;
