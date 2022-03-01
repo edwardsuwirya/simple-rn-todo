@@ -7,7 +7,7 @@
  */
 
 import React, {useEffect, useState} from 'react';
-import {SafeAreaView, StyleSheet, Text, View,} from 'react-native';
+import {SafeAreaView, StatusBar, StyleSheet, Text, View,} from 'react-native';
 import Input from "../components/Input";
 import SubmitButton from "../components/SubmitButton";
 import {TODO_PATH} from "../navigation/NavigationPath";
@@ -15,6 +15,7 @@ import languages from "../utils/languages"
 import {useDispatch, useSelector} from "react-redux";
 import {showLoading} from "../store/todo/ToDoAction";
 import {login} from "../store/login/LoginAction";
+import Heading from "../components/Heading";
 
 const LoginScreen = ({navigation}) => {
     const dispatch = useDispatch();
@@ -44,6 +45,9 @@ const LoginScreen = ({navigation}) => {
     return (
         <SafeAreaView style={styles.container}>
             <View style={styles.content}>
+                <View style={{paddingBottom: 20}}>
+                    <Heading title={'Todo'}/>
+                </View>
                 <Input placeholder={languages.en.username} currentValue={userName} onInputChange={setUserName}/>
                 <Input placeholder={languages.en.password} isSecureText={true} currentValue={password}
                        onInputChange={setPassword}/>

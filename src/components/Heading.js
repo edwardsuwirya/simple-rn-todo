@@ -2,7 +2,7 @@ import React from 'react';
 import {Text, View, StyleSheet} from "react-native";
 
 const Heading = ({title = ''}) => (
-    <View style={styles.header}>
+    <View>
         <Text style={styles.headerText}>
             {title}
         </Text>
@@ -10,12 +10,9 @@ const Heading = ({title = ''}) => (
 )
 
 const styles = StyleSheet.create({
-    header: {
-        marginTop: 40
-    },
     headerText: {
         textAlign: 'center',
-        fontSize: 72,
+        fontSize: 36,
         color: 'rgba(175, 47, 47, 0.25)',
         fontWeight: '100'
     }

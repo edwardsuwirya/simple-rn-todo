@@ -1,4 +1,4 @@
-import {ActivityIndicator, StyleSheet, View} from "react-native";
+import {ActivityIndicator, StatusBar, StyleSheet, View} from "react-native";
 import React from "react";
 import {useSelector} from "react-redux";
 
@@ -6,6 +6,7 @@ const Loading = () => {
     const isLoading = useSelector((state) => state.ToDoReducer.isLoading);
     return isLoading ? (
         <View style={styles.loading}>
+            <StatusBar backgroundColor={'#00000080'}/>
             <ActivityIndicator size={"large"} color="#0000ff"/>
         </View>
     ) : (<View/>)

@@ -11,6 +11,7 @@ import configureStore from "./store/store";
 import {Provider} from "react-redux";
 import RootNavigator from "./navigation/RootNavigator";
 import Loading from "./components/Loading";
+import {StatusBar} from "react-native";
 /*
 Component Creation Step
 0. ToDoScreen
@@ -38,6 +39,7 @@ const store = configureStore();
 const App = () => {
     return (
         <Provider store={store}>
+            <StatusBar backgroundColor={'#F2F2F2'}/>
             <RootNavigator/>
             <Loading/>
         </Provider>

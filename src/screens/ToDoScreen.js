@@ -7,7 +7,7 @@
  */
 
 import React from 'react';
-import {KeyboardAvoidingView, StyleSheet, View,} from 'react-native';
+import {KeyboardAvoidingView, StatusBar, StyleSheet, View,} from 'react-native';
 import Heading from "../components/Heading";
 import Input from "../components/Input";
 import ToDoList from "../containers/ToDoList";
@@ -48,7 +48,6 @@ const ToDoScreen = () => {
         <SafeAreaView style={styles.container}>
             <KeyboardAvoidingView style={styles.container}>
                 <View style={styles.content}>
-                    <Heading title={'todos'}/>
                     <Input placeholder={languages.en.todoInput} currentValue={todoName}
                            onInputChange={onSetTodoName}/>
                     <SubmitButton onSubmit={submitTodo}/>
