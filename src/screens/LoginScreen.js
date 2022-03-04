@@ -7,7 +7,7 @@
  */
 
 import React, {useEffect, useState} from 'react';
-import {SafeAreaView, StatusBar, StyleSheet, Text, View,} from 'react-native';
+import {Alert, SafeAreaView, StyleSheet, View} from 'react-native';
 import Input from "../components/Input";
 import SubmitButton from "../components/SubmitButton";
 import {TODO_PATH} from "../navigation/NavigationPath";
@@ -16,6 +16,8 @@ import {useDispatch, useSelector} from "react-redux";
 import {showLoading} from "../store/todo/ToDoAction";
 import {login} from "../store/login/LoginAction";
 import Heading from "../components/Heading";
+import LoginService from "../services/LoginService";
+import {MessageBox} from "../containers/MessageBox";
 
 const LoginScreen = ({navigation}) => {
     const dispatch = useDispatch();
@@ -25,22 +27,20 @@ const LoginScreen = ({navigation}) => {
 
     useEffect(() => {
         if (isLoggedIn) {
-            dispatch(showLoading(false));
             navigation.replace(TODO_PATH);
-        } else {
-            dispatch(showLoading(false));
         }
     })
-    const submitLogin = () => {
-        dispatch(showLoading(true));
-
-        setTimeout(function () {
-            if (userName === '123' && password === '123') {
-                dispatch(login(true));
-            } else {
-                dispatch(login(false));
-            }
-        }, 1000);
+    const submitLogin = async () => {
+        try {
+            dispatch(showLoading(true));
+            let result = await LoginService().callLoginService(userName, password);
+            console.log(result);
+            dispatch(login(true));
+            dispatch(showLoading(false));
+        } catch (e) {
+            dispatch(showLoading(false));
+            MessageBox('Error', e.message, () => console.log('Ok')).showAlert();
+        }
     }
     return (
         <SafeAreaView style={styles.container}>

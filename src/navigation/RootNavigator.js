@@ -6,11 +6,12 @@ import {LOGIN_PATH, SPLASH_PATH, TODO_PATH} from "./NavigationPath";
 import PopupMenu from "../components/PopupMenu";
 import SplashScreen from "../screens/SplashScreen";
 import Heading from "../components/Heading";
+import {navigationRef} from "./RootNavigation";
 
 const Stack = createNativeStackNavigator();
 
 const RootNavigator = () => {
-    return <NavigationContainer>
+    return <NavigationContainer ref={navigationRef}>
         <Stack.Navigator initialRouteName={SPLASH_PATH}>
             <Stack.Screen name={SPLASH_PATH} component={SplashScreen} options={{headerShown: false}}/>
             <Stack.Screen name={LOGIN_PATH} component={LoginScreen} options={{headerShown: false}}/>
