@@ -4,6 +4,7 @@ import Icon from "react-native-vector-icons/FontAwesome";
 import {LOGIN_PATH} from "../navigation/NavigationPath";
 import {useDispatch, useSelector} from "react-redux";
 import {logout} from "../store/login/LoginAction";
+import LocalStorage from "../utils/LocalStorage";
 
 const PopupMenu = ({navigation}) => {
     const dispatch = useDispatch();
@@ -37,7 +38,8 @@ const PopupMenu = ({navigation}) => {
                     <View style={styles.centeredView}>
                         <TouchableWithoutFeedback>
                             <View style={styles.modalView}>
-                                <Pressable onPress={() => {
+                                <Pressable onPress={async () => {
+                                    await LocalStorage().setData('token', null);
                                     dispatch(logout());
                                 }}>
                                     <Text style={styles.modalText}>Logout</Text>

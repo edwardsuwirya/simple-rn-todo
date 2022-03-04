@@ -7,7 +7,7 @@
  */
 
 import React, {useEffect, useState} from 'react';
-import {Alert, SafeAreaView, StyleSheet, View} from 'react-native';
+import {SafeAreaView, StyleSheet, View} from 'react-native';
 import Input from "../components/Input";
 import SubmitButton from "../components/SubmitButton";
 import {TODO_PATH} from "../navigation/NavigationPath";
@@ -18,8 +18,10 @@ import {login} from "../store/login/LoginAction";
 import Heading from "../components/Heading";
 import LoginService from "../services/LoginService";
 import {MessageBox} from "../containers/MessageBox";
+import {goToScreen} from "../navigation/NavigationHelper";
+import LocalStorage from "../utils/LocalStorage";
 
-const LoginScreen = ({navigation}) => {
+const LoginScreen = () => {
     const dispatch = useDispatch();
     const [userName, setUserName] = useState('');
     const [password, setPassword] = useState('');
@@ -27,14 +29,14 @@ const LoginScreen = ({navigation}) => {
 
     useEffect(() => {
         if (isLoggedIn) {
-            navigation.replace(TODO_PATH);
+            goToScreen(TODO_PATH, true);
         }
     })
     const submitLogin = async () => {
         try {
             dispatch(showLoading(true));
             let result = await LoginService().callLoginService(userName, password);
-            console.log(result);
+            await LocalStorage().setData('token', result);
             dispatch(login(true));
             dispatch(showLoading(false));
         } catch (e) {
