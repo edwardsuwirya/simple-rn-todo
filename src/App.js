@@ -7,7 +7,7 @@
  */
 
 import React from 'react';
-import configureStore from "./store/store";
+import store from "./store/store";
 import {Provider} from "react-redux";
 import RootNavigator from "./navigation/RootNavigator";
 import Loading from "./components/Loading";
@@ -35,10 +35,6 @@ https://wix.github.io/react-native-navigation/docs/installing
      headerBackVisible: false
 }}/>
  */
-const store = configureStore();
-if (__DEV__) {
-    import('./utils/ReactotronConfig').then(() => console.log('Reactotron Configured'))
-}
 const App = () => {
     return (
         <Provider store={store}>

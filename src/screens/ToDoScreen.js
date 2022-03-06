@@ -7,22 +7,22 @@
  */
 
 import React from 'react';
-import {KeyboardAvoidingView, StatusBar, StyleSheet, View,} from 'react-native';
-import Heading from "../components/Heading";
+import {KeyboardAvoidingView, StyleSheet, View,} from 'react-native';
 import Input from "../components/Input";
 import ToDoList from "../containers/ToDoList";
 import SubmitButton from "../components/SubmitButton";
 import TabBar from "../containers/TabBar";
-import {addTodo, setTodoName, showLoading} from "../store/todo/ToDoAction";
+import {setTodoName, showLoading} from "../store/todo/ToDoAction";
 import {useDispatch, useSelector} from "react-redux";
 import SafeAreaView from "react-native/Libraries/Components/SafeAreaView/SafeAreaView";
 import languages from "../utils/languages";
+import ToDoService from "../services/TodoService";
 
 const ToDoScreen = () => {
     const dispatch = useDispatch();
     const currIndex = useSelector((state) => state.ToDoReducer.todoIndex);
     const todoName = useSelector((state) => state.ToDoReducer.newTodoName);
-    const submitTodo = () => {
+    const submitTodo = async () => {
         dispatch(showLoading(true));
         if (todoName.match(/^\s*$/)) {
             dispatch(showLoading(false));
@@ -33,12 +33,12 @@ const ToDoScreen = () => {
             todoIndex: currIndex,
             complete: false
         }
-
-        // Hanya sekedar simulasi
-        setTimeout(function () {
-            dispatch(addTodo(todo));
+        try {
+            await ToDoService().addTodo(todo);
+        } catch (e) {
+        } finally {
             dispatch(showLoading(false));
-        }, 1000);
+        }
     }
 
     const onSetTodoName = (text) => {

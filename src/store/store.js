@@ -10,4 +10,5 @@ const rootReducer = combineReducers(
 const configureStore = () => {
     return createStore(rootReducer, reactotron.createEnhancer());
 }
-export default configureStore;
+const store = configureStore();
+export default store;

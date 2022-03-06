@@ -3,6 +3,8 @@ import {API_URL} from "@env";
 import {goToLogin} from "../navigation/NavigationHelper";
 import {GlobalError, UnauthorizedError} from "../utils/AppError";
 import LocalStorage from "../utils/LocalStorage";
+import {logout} from "../store/login/LoginAction";
+import store from "../store/store";
 
 const client = axios.create({
     baseURL: API_URL,
@@ -26,6 +28,7 @@ client.interceptors.response.use((response) => {
     return response;
 }, (error) => {
     if (error.response.status === 401) {
+        store.dispatch(logout());
         goToLogin();
     }
     return Promise.reject(error);
