@@ -14,21 +14,21 @@ describe('Navigation Helper', () => {
                 test(moduleRootNavigation, moduleNavigationHelper);
             });
     }
-    it('navigate to Login', async () => {
+    it('navigate to Login', () => {
         return importModule((moduleRootNavigation, moduleNavigationHelper) => {
             const nav = jest.spyOn(moduleRootNavigation, "navigate");
             moduleNavigationHelper.goToLogin();
             expect(nav).toHaveBeenCalledWith(LOGIN_PATH, null, true)
         })
     });
-    it('navigate to screen', async () => {
+    it('navigate to screen', () => {
         return importModule((moduleRootNavigation, moduleNavigationHelper) => {
             const nav = jest.spyOn(moduleRootNavigation, "navigate");
             moduleNavigationHelper.goToScreen('path', false);
             expect(nav).toHaveBeenCalledWith('path', null, false)
         })
     });
-    it('navigate to screen with params', async () => {
+    it('navigate to screen with params', () => {
         return importModule((moduleRootNavigation, moduleNavigationHelper) => {
             const nav = jest.spyOn(moduleRootNavigation, "navigate");
             moduleNavigationHelper.goToScreenWithParams('path', {}, false);
