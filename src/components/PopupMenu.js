@@ -1,18 +1,18 @@
-import {Modal, Text, StyleSheet, View, TouchableOpacity, TouchableWithoutFeedback, Pressable} from "react-native";
+import {Modal, Pressable, StyleSheet, Text, TouchableOpacity, TouchableWithoutFeedback, View} from "react-native";
 import React, {useEffect, useState} from "react";
 import Icon from "react-native-vector-icons/FontAwesome";
-import {LOGIN_PATH} from "../navigation/NavigationPath";
 import {useDispatch, useSelector} from "react-redux";
 import {logout} from "../store/login/LoginAction";
 import LocalStorage from "../utils/LocalStorage";
+import {goToLogin} from "../navigation/NavigationHelper";
 
-const PopupMenu = ({navigation}) => {
+const PopupMenu = () => {
     const dispatch = useDispatch();
     const isLoggedIn = useSelector((state) => state.LoginReducer.isLoggedIn);
     const [modalVisible, setModalVisible] = useState(false);
     useEffect(() => {
         if (isLoggedIn === false) {
-            navigation.replace(LOGIN_PATH);
+            goToLogin()
         }
     })
     return (
@@ -20,22 +20,20 @@ const PopupMenu = ({navigation}) => {
             <Pressable style={{paddingLeft: 30}}
                        onPress={() => setModalVisible(!modalVisible)}
             >
-                <Icon name={'ellipsis-v'}
+                <Icon accessibilityHint="button" name={'ellipsis-v'}
                       size={16}/>
             </Pressable>
             <Modal
+                accessibilityHint="modal"
                 animationType="fade"
                 transparent={true}
                 visible={modalVisible}
-                onRequestClose={() => {
-                    setModalVisible(!modalVisible);
-                }}
             >
-                <TouchableOpacity style={{flex: 1}} activeOpacity={1}
+                <TouchableOpacity accessibilityHint="touchable-button" style={{flex: 1}} activeOpacity={1}
                                   onPressOut={() => {
                                       setModalVisible(false)
                                   }}>
-                    <View style={styles.centeredView}>
+                    <View  style={styles.centeredView}>
                         <TouchableWithoutFeedback>
                             <View style={styles.modalView}>
                                 <Pressable onPress={async () => {

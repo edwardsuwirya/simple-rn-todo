@@ -8,5 +8,5 @@ const reactotron = Reactotron
     .useReactNative()
     .use(reactotronRedux())
     .connect()
-
+Reactotron.clear()
 export default reactotron;
