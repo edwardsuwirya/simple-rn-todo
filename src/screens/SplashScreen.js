@@ -6,22 +6,16 @@
  * @flow strict-local
  */
 
-import React, {useEffect, useState} from 'react';
-import {Image, SafeAreaView, StatusBar, StyleSheet, Text, View,} from 'react-native';
-import Input from "../components/Input";
-import SubmitButton from "../components/SubmitButton";
-import {LOGIN_PATH, TODO_PATH} from "../navigation/NavigationPath";
-import languages from "../utils/languages"
-import {useDispatch, useSelector} from "react-redux";
-import {showLoading} from "../store/todo/ToDoAction";
-import {login} from "../store/login/LoginAction";
+import React, {useEffect} from 'react';
+import {Image, StyleSheet, View,} from 'react-native';
 import {enigma} from "../assets/images";
+import {goToLogin} from "../navigation/NavigationHelper";
 
-const SplashScreen = ({navigation}) => {
+const SplashScreen = () => {
 
         useEffect(() => {
             setTimeout(() => {
-                navigation.replace(LOGIN_PATH)
+                goToLogin()
             }, 3000)
         })
         return (

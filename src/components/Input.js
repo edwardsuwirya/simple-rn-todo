@@ -9,6 +9,7 @@ const Input = ({placeholder = '', isSecureText = false, currentValue = '', onInp
     return (
         <View style={styles.inputContainer}>
             <TextInput
+                accessibilityHint="input"
                 value={currentValue}
                 style={styles.input}
                 placeholder={placeholder}

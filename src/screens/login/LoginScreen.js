@@ -22,7 +22,7 @@ const LoginScreen = ({login}) => {
     const error = useSelector((state) => state.AppReducer.error);
     useEffect(() => {
         if (error) {
-            MessageBox('Error', error, () => onDismissError()).showAlert();
+            MessageBox('Error', error, onDismissError).showAlert();
         }
     })
     const submitLogin = async () => {

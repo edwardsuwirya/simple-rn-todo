@@ -36,9 +36,7 @@ https://wix.github.io/react-native-navigation/docs/installing
 }}/>
  */
 const store = configureStore();
-if (__DEV__) {
-    import('./utils/ReactotronConfig').then(() => console.log('Reactotron Configured'))
-}
+
 const App = () => {
     return (
         <Provider store={store}>

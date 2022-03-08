@@ -7,7 +7,7 @@ export const MessageBox = (title, message, okCallBack) => {
             title,
             message,
             [
-                {text: "OK", onPress: () => okCallBack()}
+                {text: "OK", onPress: okCallBack}
             ]
         );
     }
