@@ -1,34 +1,18 @@
 import React from 'react'
 import {FlatList, View} from 'react-native'
 import ToDo from "./ToDo";
-import {useSelector} from "react-redux";
 
-const ToDoList = () => {
-    const todos = useSelector(state => state.ToDoReducer.todo);
-    const todoType = useSelector(state => state.ToDoReducer.type);
-
-    const getVisibleTodos = (todos, type) => {
-        switch (type) {
-            case 'All':
-                return todos
-            case 'Complete':
-                return todos.filter((t) => t.complete)
-            case 'Active':
-                return todos.filter((t) => !t.complete)
-        }
-    }
-
-    let selectedTodos = getVisibleTodos(todos, todoType);
+const ToDoList = ({todos}) => {
     //renderItem akan melempar sebuah props item
-    let todoItems = ({item}) => {
+    const todoItems = ({item}) => {
         return (
             <ToDo todo={item}/>
         );
     };
     return (
-        <View>
+        <View style={{marginBottom:30}}>
             <FlatList
-                data={selectedTodos}
+                data={todos}
                 renderItem={todoItems}
                 keyExtractor={item => item.todoIndex}
             />

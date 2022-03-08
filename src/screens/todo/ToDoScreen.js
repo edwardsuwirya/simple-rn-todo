@@ -19,11 +19,11 @@ import {useSelector} from "react-redux";
 
 const ToDoScreen = ({todo}) => {
     const [todoName, setTodoName] = useState('');
-    const {onSubmitTodo,onDismissError} = todo();
+    const {onSubmitTodo, onDismissError, getVisibleTodos} = todo();
     const error = useSelector((state) => state.AppReducer.error);
     useEffect(() => {
         if (error) {
-            MessageBox('Error', error, () => onDismissError()).showAlert();
+            MessageBox('Error', error, onDismissError).showAlert();
         }
     })
     const submitTodo = () => {
@@ -38,7 +38,7 @@ const ToDoScreen = ({todo}) => {
                            onInputChange={setTodoName}/>
                     <SubmitButton onSubmit={submitTodo}/>
                     <View style={styles.content}>
-                        <ToDoList/>
+                        <ToDoList todos={getVisibleTodos()}/>
                     </View>
                     <TabBar/>
                 </View>
