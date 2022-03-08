@@ -11,15 +11,24 @@ import {Login} from "../screens/login/Login";
 import LoginService from "../services/LoginService";
 import ToDoService from "../services/TodoService";
 import {Todo} from "../screens/todo/Todo";
+import DepProvider from "../utils/DependencyContext";
+import ApiClient from "../services/ApiClient";
+import LocalStorage from "../utils/LocalStorage";
 
 const Stack = createNativeStackNavigator();
+const apiClient = ApiClient();
+const localStorage = LocalStorage();
 
 const RootNavigator = () => {
     return <NavigationContainer ref={navigationRef}>
         <Stack.Navigator initialRouteName={SPLASH_PATH}>
             <Stack.Screen name={SPLASH_PATH} component={SplashScreen} options={{headerShown: false}}/>
             <Stack.Screen name={LOGIN_PATH} options={{headerShown: false}}>
-                {props => <LoginScreen {...props} login={() => Login(LoginService)}/>}
+                {props =>
+                    <DepProvider services={{apiClient, localStorage}}>
+                        <LoginScreen {...props} login={() => Login(LoginService)}/>
+                    </DepProvider>
+                }
             </Stack.Screen>
             <Stack.Group
                 screenOptions={({navigation}) => ({
@@ -32,7 +41,10 @@ const RootNavigator = () => {
                 })}
             >
                 <Stack.Screen name={TODO_PATH} options={{title: ''}}>
-                    {props => <ToDoScreen {...props} todo={() => Todo(ToDoService)}/>}
+                    {props =>
+                        <DepProvider services={{apiClient}}>
+                            <ToDoScreen {...props} todo={() => Todo(ToDoService)}/>
+                        </DepProvider>}
                 </Stack.Screen>
             </Stack.Group>
         </Stack.Navigator>

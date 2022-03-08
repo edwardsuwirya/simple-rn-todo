@@ -1,9 +1,10 @@
-import clientService from "./ApiClient";
+import {useDeps} from "../utils/DependencyContext";
 
 const ToDoService = () => {
+    const {apiClient} = useDeps();
     const addTodoService = async (todo) => {
         try {
-            let data = await clientService().post('/todos', {
+            let data = await apiClient.post('/todos', {
                 todo
             });
             console.log(data);
@@ -16,7 +17,7 @@ const ToDoService = () => {
 
     const getTodoService = async () => {
         try {
-            let data = await clientService().get('/todos');
+            let data = await apiClient.get('/todos');
             console.log(data);
             return data.todos;
         } catch (e) {
