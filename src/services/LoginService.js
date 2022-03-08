@@ -1,4 +1,5 @@
 import clientService from "./ApiClient";
+import LocalStorage from "../utils/LocalStorage";
 
 
 const LoginService = () => {
@@ -9,7 +10,7 @@ const LoginService = () => {
                 password,
             });
             console.log(data);
-            return data.token;
+            await LocalStorage().setData('token', data.token);
         } catch (e) {
             console.log(e);
             throw e;

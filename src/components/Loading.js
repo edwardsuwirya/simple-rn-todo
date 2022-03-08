@@ -3,7 +3,7 @@ import React from "react";
 import {useSelector} from "react-redux";
 
 const Loading = () => {
-    const isLoading = useSelector((state) => state.ToDoReducer.isLoading);
+    const isLoading = useSelector((state) => state.AppReducer.isLoading);
     return isLoading ? (
         <View style={styles.loading}>
             <StatusBar backgroundColor={'#00000080'}/>

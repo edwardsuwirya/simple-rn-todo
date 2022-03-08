@@ -1,4 +1,4 @@
-import {LOGIN, LOGOUT} from "../../utils/constants";
+import {LOGIN, LOGOUT, SHOW_LOADING} from "../../utils/constants";
 
 export function login(loginInfo) {
     return {

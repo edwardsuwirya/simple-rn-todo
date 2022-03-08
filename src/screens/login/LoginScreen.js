@@ -8,41 +8,25 @@
 
 import React, {useEffect, useState} from 'react';
 import {SafeAreaView, StyleSheet, View} from 'react-native';
-import Input from "../components/Input";
-import SubmitButton from "../components/SubmitButton";
-import {TODO_PATH} from "../navigation/NavigationPath";
-import languages from "../utils/languages"
-import {useDispatch, useSelector} from "react-redux";
-import {showLoading} from "../store/todo/ToDoAction";
-import {login} from "../store/login/LoginAction";
-import Heading from "../components/Heading";
-import LoginService from "../services/LoginService";
-import {MessageBox} from "../containers/MessageBox";
-import {goToScreen} from "../navigation/NavigationHelper";
-import LocalStorage from "../utils/LocalStorage";
+import Input from "../../components/Input";
+import SubmitButton from "../../components/SubmitButton";
+import languages from "../../utils/languages"
+import Heading from "../../components/Heading";
+import {MessageBox} from "../../containers/MessageBox";
+import {useSelector} from "react-redux";
 
-const LoginScreen = () => {
-    const dispatch = useDispatch();
+const LoginScreen = ({login}) => {
+    const {onAuthenticate, onDismissError} = login();
     const [userName, setUserName] = useState('');
     const [password, setPassword] = useState('');
-    const isLoggedIn = useSelector((state) => state.LoginReducer.isLoggedIn);
-
+    const error = useSelector((state) => state.AppReducer.error);
     useEffect(() => {
-        if (isLoggedIn) {
-            goToScreen(TODO_PATH, true);
+        if (error) {
+            MessageBox('Error', error, () => onDismissError()).showAlert();
         }
     })
     const submitLogin = async () => {
-        try {
-            dispatch(showLoading(true));
-            let result = await LoginService().callLoginService(userName, password);
-            await LocalStorage().setData('token', result);
-            dispatch(login(true));
-            dispatch(showLoading(false));
-        } catch (e) {
-            dispatch(showLoading(false));
-            MessageBox('Error', e.message, () => console.log('Ok')).showAlert();
-        }
+        onAuthenticate(userName, password)
     }
     return (
         <SafeAreaView style={styles.container}>

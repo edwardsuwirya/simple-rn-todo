@@ -1,4 +1,4 @@
-import {ADD_TODO, CHANGE_TYPE, DELETE_TODO, SET_TODO_NAME, SHOW_LOADING, TOGGLE_COMPLETE} from "../../utils/constants";
+import {ADD_TODO, CHANGE_TYPE, DELETE_TODO, TOGGLE_COMPLETE} from "../../utils/constants";
 
 export function addTodo(newTodo) {
     return {
@@ -27,16 +27,4 @@ export function changeType(type) {
         payload: type
     }
 }
-export function setTodoName(text) {
-    return {
-        type: SET_TODO_NAME,
-        payload: text
-    }
-}
 
-export function showLoading(loading) {
-    return {
-        type: SHOW_LOADING,
-        payload: loading
-    }
-}

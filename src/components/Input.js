@@ -32,6 +32,7 @@ const styles = StyleSheet.create({
         elevation: 3,
         //Mandatory style for shadowing
         backgroundColor: '#ffffff',
+        marginBottom:5
     }, input: {
         height: 60,
         backgroundColor: '#ffffff',

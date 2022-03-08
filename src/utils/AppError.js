@@ -12,6 +12,14 @@ export class UnauthorizedError extends Error {
     }
 }
 
+export class MandatoryError extends Error {
+    constructor(message) {
+        super(message);
+        this.name = "MandatoryError";
+    }
+}
+
+
 export class GlobalError extends Error {
     constructor(message) {
         super(message);
