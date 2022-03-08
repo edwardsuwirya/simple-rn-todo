@@ -1,8 +1,12 @@
 jest.mock('../../src/utils/DependencyContext', () => {
     return {
         useDeps: jest.fn().mockReturnValue({
-            apiClient: jest.fn(),
-            localStorage: jest.fn()
+            apiClient: {
+                post: jest.fn()
+            },
+            localStorage: {
+                setData: jest.fn()
+            }
         })
     }
 })
