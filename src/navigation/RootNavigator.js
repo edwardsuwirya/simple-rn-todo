@@ -18,7 +18,6 @@ import LocalStorage from "../utils/LocalStorage";
 const Stack = createNativeStackNavigator();
 const apiClient = ApiClient();
 const localStorage = LocalStorage();
-require('../assets/images/enigma.png')
 const RootNavigator = () => {
     return <NavigationContainer ref={navigationRef}>
         <Stack.Navigator initialRouteName={SPLASH_PATH}>
