@@ -8,10 +8,7 @@
 
 import React from 'react';
 import configureStore from "./store/store";
-import {Provider} from "react-redux";
-import RootNavigator from "./navigation/RootNavigator";
-import Loading from "./components/Loading";
-import {StatusBar} from "react-native";
+import {ExampleScreen} from "./screens";
 /*
 Component Creation Step
 0. ToDoScreen
@@ -39,11 +36,13 @@ const store = configureStore();
 
 const App = () => {
     return (
-        <Provider store={store}>
-            <StatusBar backgroundColor={'#F2F2F2'}/>
-            <RootNavigator/>
-            <Loading/>
-        </Provider>
+        // <Provider store={store}>
+        //     <StatusBar backgroundColor={'#F2F2F2'}/>
+        //     <RootNavigator/>
+        //     <Loading/>
+        // </Provider>
+        <ExampleScreen/>
+        // <Text>111</Text>
     );
 };
 
