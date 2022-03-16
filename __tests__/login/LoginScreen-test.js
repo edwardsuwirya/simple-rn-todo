@@ -1,9 +1,9 @@
-import {fireEvent, render, waitFor} from "@testing-library/react-native";
+import {fireEvent, render} from "@testing-library/react-native";
 import React from "react";
 import {Login} from "../../src/screens/login/Login";
 import {LoginScreen} from "../../src/screens";
-import {useSelector} from "react-redux";
 import {Alert} from "react-native";
+import {useSelector} from "react-redux";
 
 jest.mock("react-redux", () => ({
     ...jest.requireActual("react-redux"),
