@@ -16,6 +16,6 @@ describe('Login Reducer', () => {
         };
         const actionDummy = {type: LOGOUT}
         const result = LoginReducer(initialStateDummy, actionDummy);
-        expect(result.isLoggedIn).toeFalsy();
+        expect(result.isLoggedIn).toBeFalsy();
     })
 })

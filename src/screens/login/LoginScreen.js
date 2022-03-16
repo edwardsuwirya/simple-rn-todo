@@ -7,7 +7,7 @@
  */
 
 import React, {useEffect, useState} from 'react';
-import {SafeAreaView, StyleSheet, View} from 'react-native';
+import {SafeAreaView, StyleSheet, Text, View} from 'react-native';
 import Input from "../../components/Input";
 import SubmitButton from "../../components/SubmitButton";
 import languages from "../../utils/languages"
